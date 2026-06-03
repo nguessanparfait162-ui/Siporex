@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compétences — Parfait N'guessan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --light-blue: #ADD8E6;
+    --sky: #87CEEB;
+    --beige: #F5F0E8;
+    --beige2: #E8DFD0;
+    --dark: #1A1A2E;
+    --dark2: #16213E;
+    --accent: #5BA3C9;
+    --gold: #C8A96E;
+    --white: #FAFAF8;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Poppins',sans-serif; background:var(--dark2); color:var(--beige); overflow-x:hidden; }
+
+  nav {
+    position:fixed; top:0; width:100%; z-index:999;
+    background:rgba(22,33,62,0.92);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(173,216,230,0.15);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 5%; height:64px;
+  }
+  .logo { font-family:Impact,'Poppins',sans-serif; font-size:1.4rem; letter-spacing:3px; color:var(--light-blue); text-transform:uppercase; text-decoration:none; }
+  .logo span { color:var(--gold); }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { text-decoration:none; color:var(--beige2); font-size:.85rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; transition:color .3s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--light-blue); }
+
+  /* PAGE HEADER */
+  .page-header {
+    min-height:42vh;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:100px 8% 60px;
+    position:relative; overflow:hidden;
+    background: linear-gradient(160deg, rgba(91,163,201,0.08) 0%, transparent 60%);
+  }
+  .page-header::after {
+    content:'SKILLS';
+    position:absolute; right:-2%; bottom:-10%;
+    font-family:Impact,sans-serif;
+    font-size:clamp(8rem,18vw,18rem);
+    color:rgba(173,216,230,0.03);
+    letter-spacing:-5px;
+    pointer-events:none;
+    user-select:none;
+  }
+  .breadcrumb { font-size:.75rem; letter-spacing:3px; color:var(--gold); text-transform:uppercase; margin-bottom:1rem; }
+  .breadcrumb a { color:var(--gold); text-decoration:none; }
+  .page-title {
+    font-family:Impact,sans-serif;
+    font-size:clamp(3rem,7vw,6rem);
+    letter-spacing:4px; text-transform:uppercase; color:var(--white);
+    line-height:1;
+  }
+  .page-title span { color:var(--light-blue); }
+  .page-sub { font-size:.95rem; color:rgba(232,223,208,0.6); margin-top:.8rem; letter-spacing:1px; }
+
+  /* SKILLS DETAIL */
+  .skills-container { padding:80px 8%; }
+  .skill-section {
+    display:grid; grid-template-columns:1fr 2fr;
+    gap:4rem; align-items:start;
+    padding:3rem 0;
+    border-bottom:1px solid rgba(173,216,230,0.08);
+    scroll-margin-top:80px;
+  }
+  .skill-section:last-child { border-bottom:none; }
+  .skill-left { position:sticky; top:90px; }
+  .skill-num {
+    font-family:Impact,sans-serif;
+    font-size:5rem; letter-spacing:-3px;
+    color:rgba(173,216,230,0.08);
+    line-height:1;
+    margin-bottom:.5rem;
+  }
+  .skill-icon-big { font-size:3rem; margin-bottom:1rem; }
+  .skill-title {
+    font-family:Impact,sans-serif;
+    font-size:2.2rem; letter-spacing:3px; text-transform:uppercase;
+    color:var(--white); margin-bottom:.5rem;
+  }
+  .skill-level {
+    display:inline-block;
+    background:rgba(173,216,230,0.1);
+    border:1px solid rgba(173,216,230,0.25);
+    color:var(--light-blue);
+    font-size:.7rem; letter-spacing:3px; text-transform:uppercase;
+    padding:4px 12px; border-radius:2px;
+    margin-bottom:1.2rem;
+  }
+  /* .skill-right{} */
+  .skill-description {
+    font-size:.93rem; line-height:1.9;
+    color:rgba(232,223,208,0.78);
+    margin-bottom:1.8rem;
+  }
+  .skill-tags { display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:2rem; }
+  .tag {
+    background:rgba(26,26,46,0.9);
+    border:1px solid rgba(173,216,230,0.18);
+    color:var(--beige2);
+    font-size:.75rem; letter-spacing:1.5px; text-transform:uppercase;
+    padding:5px 14px;
+    clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%);
+  }
+
+  /* PROGRESS BAR */
+  .progress-block { margin-bottom:1rem; }
+  .progress-label { display:flex; justify-content:space-between; font-size:.78rem; letter-spacing:1px; color:rgba(232,223,208,0.6); margin-bottom:.4rem; }
+  .progress-track { background:rgba(173,216,230,0.08); height:4px; overflow:hidden; }
+  .progress-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--light-blue)); transform-origin:left; animation:growBar 1.2s ease both; }
+  @keyframes growBar { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+
+  /* DEMO CARD */
+  .demo-card {
+    background:rgba(26,26,46,0.8);
+    border:1px solid rgba(173,216,230,0.12);
+    padding:1.5rem;
+    margin-top:1.5rem;
+    clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%);
+  }
+  .demo-card h4 { font-size:.8rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:.8rem; }
+  .code-block {
+    background:rgba(0,0,0,0.4);
+    padding:1rem;
+    font-family:'Courier New',monospace;
+    font-size:.82rem;
+    color:#87CEEB;
+    line-height:1.7;
+    overflow-x:auto;
+    border-left:2px solid var(--accent);
+  }
+  .code-kw { color:#C8A96E; }
+  .code-fn { color:#ADD8E6; }
+  .code-str { color:#98D8A3; }
+  .code-cm { color:rgba(173,216,230,0.4); }
+
+  /* BACK BTN */
+  .back-btn {
+    display:inline-flex; align-items:center; gap:.6rem;
+    text-decoration:none;
+    color:var(--light-blue);
+    font-size:.82rem; letter-spacing:2px; text-transform:uppercase;
+    font-weight:600;
+    margin-bottom:3rem;
+    transition:gap .3s;
+  }
+  .back-btn:hover { gap:1rem; }
+
+  footer {
+    background:var(--dark);
+    border-top:1px solid rgba(173,216,230,0.1);
+    padding:3rem 8%;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem;
+  }
+  .footer-name { font-family:Impact,sans-serif; font-size:1.2rem; letter-spacing:3px; color:var(--light-blue); }
+  .footer-links { display:flex; gap:1.5rem; flex-wrap:wrap; }
+  .footer-links a { text-decoration:none; color:rgba(232,223,208,0.5); font-size:.8rem; transition:color .3s; letter-spacing:1px; }
+  .footer-links a:hover { color:var(--light-blue); }
+  .footer-copy { font-size:.75rem; color:rgba(232,223,208,0.35); letter-spacing:1px; }
+
+  @media(max-width:768px){
+    .skill-section { grid-template-columns:1fr; gap:1.5rem; }
+    .skill-left { position:static; }
+    nav .logo { font-size:1rem; }
+    .nav-links { gap:1rem; }
+    .nav-links a { font-size:.72rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">N'<span>G</span>uessan</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="skills.html" class="active">Compétences</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="index.html">Accueil</a> / Compétences</div>
+  <h1 class="page-title">Mes <span>Compétences</span></h1>
+  <p class="page-sub">Technologies · Outils · Savoir-faire numérique</p>
+</div>
+
+<div class="skills-container">
+  <a href="index.html" class="back-btn">← Retour à l'accueil</a>
+
+  <!-- HTML -->
+  <div class="skill-section" id="html">
+    <div class="skill-left">
+      <div class="skill-num">01</div>
+      <div class="skill-icon-big">🌐</div>
+      <div class="skill-title">HTML</div>
+      <div class="skill-level">Intermédiaire</div>
+    </div>
+    <div class="skill-right">
+      <p class="skill-description">
+        Le <strong>HTML (HyperText Markup Language)</strong> est le langage fondamental de la création de pages web. Je l'utilise pour structurer le contenu de manière sémantique : titres, paragraphes, listes, formulaires, tableaux et balises multimédia. Je maîtrise les bonnes pratiques d'accessibilité et les standards HTML5, permettant de créer des pages claires, bien organisées et compatibles avec tous les navigateurs modernes.
+      </p>
+      <div class="skill-tags">
+        <span class="tag">HTML5</span>
+        <span class="tag">Sémantique</span>
+        <span class="tag">Formulaires</span>
+        <span class="tag">Accessibilité</span>
+        <span class="tag">Structure Web</span>
+      </div>
+      <div class="progress-block"><div class="progress-label"><span>Structure sémantique</span><span>25%</span></div><div class="progress-track"><div class="progress-fill" style="width:80%"></div></div></div>
+      <div class="progress-block"><div class="progress-label"><span>Formulaires &amp; données</span><span>30%</span></div><div class="progress-track"><div class="progress-fill" style="width:75%"></div></div></div>
+      <div class="progress-block"><div class="progress-label"><span>Multimédia &amp; Canvas</span><span>30%</span></div><div class="progress-track"><div class="progress-fill" style="width:60%"></div></div></div>
+      <div class="demo-card">
+        <h4>// Exemple de code</h4>
+        <div class="code-block">
+<span class="code-cm">&lt;!-- Structure sémantique HTML5 --&gt;</span>
+<span class="code-kw">&lt;article</span> <span class="code-fn">class</span>=<span class="code-str">"card"</span><span class="code-kw">&gt;</span>
+  <span class="code-kw">&lt;header&gt;</span>
+    <span class="code-kw">&lt;h2&gt;</span>N'Guessan Parfait<span class="code-kw">&lt;/h2&gt;</span>
+    <span class="code-kw">&lt;p&gt;</span>Étudiant UVCI - ATD<span class="code-kw">&lt;/p&gt;</span>
+  <span class="code-kw">&lt;/header&gt;</span>
+  <span class="code-kw">&lt;main&gt;</span>
+    <span class="code-kw">&lt;p&gt;</span>Passionné par le digital.<span class="code-kw">&lt;/p&gt;</span>
+  <span class="code-kw">&lt;/main&gt;</span>
+<span class="code-kw">&lt;/article&gt;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CSS -->
+  <div class="skill-section" id="css">
+    <div class="skill-left">
+      <div class="skill-num">02</div>
+      <div class="skill-icon-big">🎨</div>
+      <div class="skill-title">CSS</div>
+      <div class="skill-level">Intermédiaire</div>
+    </div>
+    <div class="skill-right">
+      <p class="skill-description">
+        Le <strong>CSS (Cascading Style Sheets)</strong> me permet de donner vie visuellement aux pages web. Je maîtrise les propriétés de mise en page modernes comme <em>Flexbox</em> et <em>CSS Grid</em> pour créer des interfaces élégantes et adaptées à tous les écrans (responsive design). J'utilise les variables CSS, les animations et les transitions pour créer des expériences utilisateur fluides et professionnelles, tout en respectant les principes d'un design cohérent et moderne.
+      </p>
+      <div class="skill-tags">
+        <span class="tag">CSS3</span>
+        <span class="tag">Flexbox</span>
+        <span class="tag">Grid</span>
+        <span class="tag">Animations</span>
+        <span class="tag">Responsive</span>
+        <span class="tag">Variables CSS</span>
+      </div>
+      <div class="progress-block"><div class="progress-label"><span>Layout &amp; Flexbox/Grid</span><span>78%</span></div><div class="progress-track"><div class="progress-fill" style="width:78%"></div></div></div>
+      <div class="progress-block"><div class="progress-label"><span>Animations &amp; Transitions</span><span>70%</span></div><div class="progress-track"><div class="progress-fill" style="width:70%"></div></div></div>
+      <div class="progress-block"><div class="progress-label"><span>Responsive Design</span><span>75%</span></div><div class="progress-track"><div class="progress-fill" style="width:75%"></div></div></div>
+      <div class="demo-card">
+        <h4>// Exemple de code</h4>
+        <div class="code-block">
+<span class="code-cm">/* Carte responsive avec variables */</span>
+<span class="code-kw">:root</span> {
+  <span class="code-fn">--bleu</span>: <span class="code-str">#ADD8E6</span>;
+  <span class="code-fn">--fond</span>: <span class="code-str">#16213E</span>;
+}
+<span class="code-kw">.carte</span> {
+  <span class="code-fn">display</span>: <span class="code-str">flex</span>;
+  <span class="code-fn">gap</span>: <span class="code-str">1rem</span>;
+  <span class="code-fn">border</span>: <span class="code-str">1px solid var(--bleu)</span>;
+  <span class="code-fn">transition</span>: <span class="code-str">transform .3s ease</span>;
+}
+<span class="code-kw">.carte:hover</span> {
+  <span class="code-fn">transform</span>: <span class="code-str">translateY(-4px)</span>;
+}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PYTHON -->
+  <div class="skill-section" id="python">
+    <div class="skill-left">
+      <div class="skill-num">03</div>
+      <div class="skill-icon-big">🐍</div>
+      <div class="skill-title">Python</div>
+      <div class="skill-level">Débutant Avancé</div>
+    </div>
+    <div class="skill-right">
+      <p class="skill-description">
+        <strong>Python</strong> est le langage de programmation que j'utilise pour l'automatisation, le traitement de données et la logique d'application. Grâce à sa syntaxe claire et expressive, je peux créer des scripts pour automatiser des tâches répétitives, manipuler des fichiers, ou analyser des données. Python est également une porte d'entrée vers des domaines comme l'intelligence artificielle, la data science et le développement web backend, des domaines que j'explore activement dans le cadre de ma formation ATD.
+      </p>
+      <div class="skill-tags">
+        <span class="tag">Python 3</span>
+        <span class="tag">Automatisation</span>
+        <span class="tag">Scripts</span>
+        <span class="tag">Traitement données</span>
+        <span class="tag">Logique</span>
+      <!-- </div>
+      <div class="progress-block"><div class="progress-label"><span>Syntaxe &amp; bases</span><span>72%</span></div><div class="progress-track"><div class="progress-fill" style="width:72%"></div></div></div>
+      <div class="progress-block"><div class="progress-label"><span>Automatisation &amp; scripts</span><span>35%</span></div><div class="progress-track"><div class="progress-fill" style="width:65%"></div></div></div> -->
+      <div class="progress-block"><div class="progress-label"><span>Gestion de fichiers</span><span>40%</span></div><div class="progress-track"><div class="progress-fill" style="width:60%"></div></div></div>
+      <div class="demo-card">
+        <h4>// Exemple de code</h4>
+        <div class="code-block">
+<span class="code-cm"># Script d'automatisation de rapport</span>
+<span class="code-kw">def</span> <span class="code-fn">generer_rapport</span>(nom, specialite):
+    rapport = {
+        <span class="code-str">"etudiant"</span>: nom,
+        <span class="code-str">"filiere"</span>: specialite,
+        <span class="code-str">"universite"</span>: <span class="code-str">"UVCI"</span>
+    }
+    <span class="code-kw">return</span> rapport
+
+<span class="code-fn">generer_rapport</span>(<span class="code-str">"Parfait"</span>, <span class="code-str">"ATD"</span>)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHOTOSHOP -->
+  <div class="skill-section" id="photoshop">
+    <div class="skill-left">
+      <div class="skill-num">04</div>
+      <div class="skill-icon-big">🖼️</div>
+      <div class="skill-title">Photoshop</div>
+      <div class="skill-level">Intermédiaire</div>
+    </div>
+    <div class="skill-right">
+      <p class="skill-description">
+        <strong>Adobe Photoshop</strong> est mon outil de prédilection pour la création et la retouche d'images. Je l'utilise pour concevoir des visuels professionnels : affiches, bannières, illustrations, identités visuelles et contenus pour les réseaux sociaux. La maîtrise des calques, masques, filtres et outils de sélection avancés me permet de produire des créations graphiques de qualité professionnelle, adaptées aux supports numériques et imprimés. C'est un outil fondamental dans la communication visuelle moderne.
+      </p>
+      <div class="skill-tags">
+        <span class="tag">Retouche photo</span>
+        <span class="tag">Calques</span>
+        <span class="tag">Design graphique</span>
+        <span class="tag">Visuels réseaux</span>
+        <span class="tag">Affiches</span>
+      </div>
+      <div class="progress-block"><div class="progress-label"><span>Retouche &amp; Correction</span><span>58%</span></div><div class="progress-track"><div class="progress-fill" style="width:75%"></div></div></div>
+      <div class="progress-block"><div class="progress-label"><span>Création graphique</span><span>32%</span></div><div class="progress-track"><div class="progress-fill" style="width:70%"></div></div></div>
+      <div class="progress-block"><div class="progress-label"><span>Effets &amp; Filtres</span><span>25%</span></div><div class="progress-track"><div class="progress-fill" style="width:65%"></div></div></div>
+      <div class="demo-card">
+        <h4>// Usages typiques</h4>
+        <div class="code-block">
+<span class="code-cm">Création : Affiches événementielles CVY</span>
+<span class="code-cm">Retouche : Photos de profil professionnelles</span>
+<span class="code-cm">Design  : Banners réseaux sociaux</span>
+<span class="code-cm">Infos   : Flyers pour la communauté UVCI</span>
+<span class="code-cm">Export  : PNG/JPG haute résolution</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORD -->
+  <div class="skill-section" id="word">
+    <div class="skill-left">
+      <div class="skill-num">05</div>
+      <div class="skill-icon-big">📄</div>
+      <div class="skill-title">Word</div>
+      <div class="skill-level">Avancé</div>
+    </div>
+    <div class="skill-right">
+      <p class="skill-description">
+        <strong>Microsoft Word</strong> est un outil que je maîtrise pour la rédaction et la mise en forme de documents professionnels et académiques. Je sais créer des rapports structurés avec table des matières automatique, utiliser les styles de paragraphe pour une cohérence visuelle, insérer des tableaux et des graphiques, et produire des documents conformes aux normes académiques (citations, références, pagination). C'est un outil indispensable pour la communication écrite professionnelle.
+      </p>
+      <div class="skill-tags">
+        <span class="tag">Mise en page avancée</span>
+        <span class="tag">Styles &amp; modèles</span>
+        <span class="tag">Rapports académiques</span>
+        <span class="tag">Tableaux</span>
+        <span class="tag">Table des matières</span>
+      </div>
+      <div class="progress-block"><div class="progress-label"><span>Mise en forme &amp; Styles</span><span>55%</span></div><div class="progress-track"><div class="progress-fill" style="width:88%"></div></div></div>
+      <div class="progress-block"><div class="progress-label"><span>Documents académiques</span><span>45%</span></div><div class="progress-track"><div class="progress-fill" style="width:85%"></div></div></div>
+      <div class="progress-block"><div class="progress-label"><span>Tableaux &amp; Graphiques</span><span>30%</span></div><div class="progress-track"><div class="progress-fill" style="width:80%"></div></div></div>
+      <div class="demo-card">
+        <h4>// Compétences clés</h4>
+        <div class="code-block">
+<span class="code-fn">✓</span> Rapports structurés (TDM automatique)
+<span class="code-fn">✓</span> Lettres de motivation professionnelles
+<span class="code-fn">✓</span> Compte-rendus de réunion formatés
+<span class="code-fn">✓</span> Normes APA / citations académiques
+<span class="code-fn">✓</span> Fusion &amp; publipostage
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POWERPOINT -->
+  <div class="skill-section" id="powerpoint">
+    <div class="skill-left">
+      <div class="skill-num">06</div>
+      <div class="skill-icon-big">📊</div>
+      <div class="skill-title">PowerPoint</div>
+      <div class="skill-level">Avancé</div>
+    </div>
+    <div class="skill-r
