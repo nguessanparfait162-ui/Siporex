@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Parfait N'guessan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --light-blue: #ADD8E6;
+      --sky: #87CEEB;
+      --beige: #F5F0E8;
+      --beige2: #E8DFD0;
+      --dark: #1A1A2E;
+      --dark2: #16213E;
+      --accent: #5BA3C9;
+      --gold: #C8A96E;
+      --white: #FAFAF8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark2);
+      color: var(--beige);
+      overflow-x: hidden;
+    }
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 999;
+      background: rgba(22, 33, 62, 0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(173, 216, 230, 0.15);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 64px;
+    }
+    .logo {
+      font-family: Impact, 'Poppins', sans-serif; font-size: 1.4rem;
+      letter-spacing: 3px; color: var(--light-blue);
+      text-transform: uppercase; text-decoration: none;
+    }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--beige2);
+      font-size: .85rem; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; transition: color .3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--light-blue); }
+
+    /* PAGE HEADER */
+    .page-header {
+      min-height: 42vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 100px 8% 60px;
+      position: relative; overflow: hidden;
+      background: linear-gradient(160deg, rgba(200, 169, 110, 0.06) 0%, transparent 60%);
+    }
+    .page-header::after {
+      content: 'CONTACT';
+      position: absolute; right: -2%; bottom: -10%;
+      font-family: Impact, sans-serif;
+      font-size: clamp(6rem, 14vw, 14rem);
+      color: rgba(200, 169, 110, 0.04);
+      letter-spacing: -5px; pointer-events: none; user-select: none;
+    }
+    .breadcrumb { font-size: .75rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+    .page-title {
+      font-family: Impact, sans-serif; font-size: clamp(3rem, 7vw, 6rem);
+      letter-spacing: 4px; text-transform: uppercase; color: var(--white); line-height: 1;
+    }
+    .page-title span { color: var(--gold); }
+    .page-sub { font-size: .95rem; color: rgba(232, 223, 208, 0.6); margin-top: .8rem; letter-spacing: 1px; }
+
+    /* CONTACT LAYOUT */
+    .contact-container {
+      padding: 80px 8%;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* LEFT — INFO */
+    .contact-info {}
+    .section-tag { font-size: .72rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
+    .contact-title {
+      font-family: Impact, sans-serif; font-size: 2.5rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--white); line-height: 1.1; margin-bottom: 1rem;
+    }
+    .contact-title span { color: var(--light-blue); }
+    .contact-intro { font-size: .92rem; line-height: 1.9; color: rgba(232, 223, 208, 0.72); margin-bottom: 2.5rem; }
+
+    .contact-methods { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-method {
+      display: flex; align-items: center; gap: 1.2rem;
+      background: rgba(26, 26, 46, 0.7);
+      border: 1px solid rgba(173, 216, 230, 0.12);
+      padding: 1.2rem 1.4rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all .3s;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    }
+    .contact-method:hover { border-color: rgba(173, 216, 230, 0.35); background: rgba(26, 26, 46, 0.95); transform: translateX(6px); }
+    .method-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .method-info {}
+    .method-label { font-size: .68rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: .25rem; }
+    .method-value { font-size: .9rem; color: var(--beige2); font-weight: 500; }
+
+    /* SOCIAL */
+    .social-section { margin-top: 2.5rem; }
+    .social-title { font-size: .72rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(232, 223, 208, 0.4); margin-bottom: 1rem; }
+    .social-links { display: flex; gap: .8rem; flex-wrap: wrap; }
+    .social-link {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: rgba(173, 216, 230, 0.06);
+      border: 1px solid rgba(173, 216, 230, 0.18);
+      color: var(--light-blue);
+      text-decoration: none;
+      font-size: .78rem; letter-spacing: 2px; text-transform: uppercase;
+      padding: 8px 18px;
+      transition: all .3s;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+    }
+    .social-link:hover { background: rgba(173, 216, 230, 0.12); border-color: var(--light-blue); }
+
+    /* RIGHT — FORM */
+    .contact-form-section {}
+    .form-header { margin-bottom: 2rem; }
+    .form-header h3 { font-family: Impact, sans-serif; font-size: 1.8rem; letter-spacing: 3px; text-transform: uppercase; color: var(--white); }
+    .form-header p { font-size: .85rem; color: rgba(232, 223, 208, 0.55); margin-top: .4rem; }
+
+    .form-group { margin-bottom: 1.4rem; }
+    .form-label { display: block; font-size: .72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--light-blue); margin-bottom: .6rem; }
+    .form-input, .form-textarea {
+      width: 100%;
+      background: rgba(26, 26, 46, 0.8);
+      border: 1px solid rgba(173, 216, 230, 0.15);
+      color: var(--beige2);
+      font-family: 'Poppins', sans-serif;
+      font-size: .9rem;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color .3s, background .3s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+    }
+    .form-input:focus, .form-textarea:focus { border-color: rgba(173, 216, 230, 0.45); background: rgba(26, 26, 46, 0.95); }
+    .form-textarea { resize: vertical; min-height: 140px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--dark2);
+      border: none; cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: .88rem; letter-spacing: 3px; text-transform: uppercase;
+      padding: 15px;
+      transition: all .3s;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+      margin-top: .5rem;
+    }
+    .form-submit:hover { background: var(--light-blue); transform: translateY(-2px); }
+
+    /* PROFILE CARD */
+    .profile-card {
+      margin-top: 3rem;
+      background: rgba(26, 26, 46, 0.6);
+      border: 1px solid rgba(200, 169, 110, 0.2);
+      padding: 2rem;
+      display: flex; gap: 1.5rem; align-items: center;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+    }
+    .profile-card img {
+      width: 75px; height: 75px;
+      object-fit: cover;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      filter: grayscale(20%);
+      flex-shrink: 0;
+    }
+    .profile-card-info {}
+    .profile-card-name { font-family: Impact, sans-serif; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white); }
+    .profile-card-role { font-size: .78rem; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-top: .25rem; }
+    .profile-card-univ { font-size: .8rem; color: rgba(173, 216, 230, 0.6); margin-top: .3rem; }
+
+    /* MAP SECTION */
+    .location-section {
+      padding: 0 8% 80px;
+    }
+    .location-card {
+      background: rgba(26, 26, 46, 0.5);
+      border: 1px solid rgba(173, 216, 230, 0.1);
+      padding: 2rem;
+      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    }
+    .location-icon { font-size: 3rem; flex-shrink: 0; }
+    .location-info h4 { font-family: Impact, sans-serif; font-size: 1.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: .4rem; }
+    .location-info p { font-size: .88rem; color: rgba(232, 223, 208, 0.65); line-height: 1.7; }
+
+    footer {
+      background: var(--dark); border-top: 1px solid rgba(173, 216, 230, 0.1);
+      padding: 3rem 8%;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-name { font-family: Impact, sans-serif; font-size: 1.2rem; letter-spacing: 3px; color: var(--light-blue); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { text-decoration: none; color: rgba(232, 223, 208, 0.5); font-size: .8rem; transition: color .3s; letter-spacing: 1px; }
+    .footer-links a:hover { color: var(--light-blue); }
+    .footer-copy { font-size: .75rem; color: rgba(232, 223, 208, 0.35); letter-spacing: 1px; }
+
+    @media(max-width: 900px) {
+      .contact-container { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      nav .logo { font-size: 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: .72rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">N'<span>G</span>uessan</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="skills.html">Compétences</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="index.html">Accueil</a> / Contact</div>
+  <h1 class="page-title">Me <span>Contacter</span></h1>
+  <p class="page-sub">Disponible pour collaborations, projets &amp; opportunités</p>
+</div>
+
+<div class="contact-container">
+
+  <!-- LEFT -->
+  <div class="contact-info">
+    <div class="section-tag">// Prenons contact</div>
+    <h2 class="contact-title">Parlons <span>Ensemble</span></h2>
+    <p class="contact-intro">
+      Que vous souhaitiez collaborer sur un projet numérique, partager des opportunités académiques ou simplement échanger sur la transformation digitale en Côte d'Ivoire — je suis disponible et ouvert à toute discussion.
+    </p>
+
+    <div class="contact-methods">
+      <a href="tel:+2250501410120" class="contact-method">
+        <span class="method-icon">📞</span>
+        <div class="method-info">
+          <div class="method-label">Téléphone Principal</div>
+          <div class="method-value">+225 05 01 41 01 20</div>
+        </div>
+      </a>
+      <a href="tel:+2250705801098" class="contact-method">
+        <span class="method-icon">📱</span>
+        <div class="method-info">
+          <div class="method-label">Téléphone Secondaire</div>
+          <div class="method-value">+225 07 05 80 10 98</div>
+        </div>
+      </a>
+      <a href="mailto:nguessanparfait162@gmail.com" class="contact-method">
+        <span class="method-icon">✉️</span>
+        <div class="method-info">
+          <div class="method-label">Adresse Email</div>
+          <div class="method-value">nguessanparfait162@gmail.com</div>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/parfait-nguessan" target="_blank" class="contact-method">
+        <span class="method-icon">💼</span>
+        <div class="method-info">
+          <div class="method-label">LinkedIn</div>
+          <div class="method-value">linkedin.com/in/parfait-nguessan</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="social-section">
+      <div class="social-title">// Réseaux</div>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/parfait-nguessan" target="_blank" class="social-link">💼 LinkedIn</a>
+        <a href="mailto:nguessanparfait162@gmail.com" class="social-link">✉️ Gmail</a>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <img src="IMAGES/moi.jpg" alt="">
+      <!-- <img src="data:image/jpeg;base64,/9j/ -->
